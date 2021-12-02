@@ -1,0 +1,12 @@
+#sumdisplay{
+    font-size: 28px;
+}
+.btncontainer td{
+    height: 50px;
+    width: 50px;
+}
+.btncontainer button{
+    font-size: 18px;
+    width: 100%;
+    height: 100%;
+}
