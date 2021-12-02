@@ -1,9 +1,11 @@
+//display function
 const displaydiv = document.querySelector('#sumdisplay');
 const display = (txt, add = true) => {
     if(add) displaydiv.textContent += txt;
     else displaydiv.textContent = txt;
 };
 
+//num btns click
 const numKeys = document.querySelectorAll("button[data-key='num']");
 numKeys.forEach(e => 
     e.addEventListener('click', e => numClick(e.target.textContent))
@@ -24,10 +26,16 @@ document.querySelector("button[data-key='clearall']").addEventListener('click',(
     display('',false);
 });
 
+//eq btns click
 const eqKeys = document.querySelectorAll("button[data-key='eq']");
 eqKeys.forEach(e => e.addEventListener('click',e =>eqClick(e.target.textContent)));
 
+//add . to num
 document.querySelector("button[data-key='=']").addEventListener('click', ()=>calculate());
+document.querySelector("button[data-key='.']").addEventListener('click', ()=>{
+    if(currNum>=0) currNum+='.';
+    display(currNum,false);
+});
 
 //clears display when typing number
 let firstInEq = true;
@@ -71,7 +79,7 @@ function eqClick(type){
     if(!Number.isFinite(currSum) ) {currSum = +currNum};
     
     currNum = '';
-
+    if(Number.isFinite(+currSum)) currSum.toFixed(6);
     if(eqType) display(currSum,false);
     eqType = type;
     firstInEq = true;
