@@ -12,11 +12,11 @@ numKeys.forEach(e =>
 );
 
 //clear
-document.querySelector("button[data-key='clear']").addEventListener('click',()=>{
+document.querySelector("button[data-key='clear']").addEventListener('click',()=>clear());
+function clear(){
     currNum = 0;
     display('',false);
-});
-
+}
 //reset all
 document.querySelector("button[data-key='clearall']").addEventListener('click',()=>{
     firstInEq = true;
@@ -32,10 +32,12 @@ eqKeys.forEach(e => e.addEventListener('click',e =>eqClick(e.target.textContent)
 
 //add . to num
 document.querySelector("button[data-key='=']").addEventListener('click', ()=>calculate());
-document.querySelector("button[data-key='.']").addEventListener('click', ()=>{
+document.querySelector("button[data-key='.']")
+.addEventListener('click', ()=>dotClick());
+function dotClick(){
     if(currNum>=0) currNum+='.';
     display(currNum,false);
-});
+}
 
 //clears display when typing number
 let firstInEq = true;
@@ -49,8 +51,6 @@ function numClick(num){
     currNum+=num;
     display(num);
     firstInEq = false;
-    console.log(currNum);
-
 }
 function eqClick(type){
     //console.log(currNum);
@@ -64,12 +64,7 @@ function eqClick(type){
                 currSum -= (+currNum);
                 break;
             case '*':
-                console.log('xx');
-                console.log(currSum);
-                console.log(currNum);
-
                 currSum *= (+currNum);
-                console.log(currSum);
                 break;
             case '/':
                 currSum /= +currNum;
@@ -91,3 +86,24 @@ function calculate(){
     eqType = null;
 }
 
+//keyboard support
+const numsArray = ['0','1','2','3','4','5','6','7','8','9'];
+const eqArray = ['+','-','*','/'];
+const allKeys = numsArray.concat(eqArray,['.','c','Enter']);
+window.addEventListener('keydown',e=>{
+    if(numsArray.includes(e.key)) numClick(e.key);
+    if(eqArray.includes(e.key)) eqClick(e.key);
+    if(e.key === '.') dotClick();
+    if(e.key === 'Enter') {
+        document.querySelector("button[data-key='=']").classList.add('keydown');
+        calculate();
+    };
+    if(e.key === 'c') clear();
+    if(allKeys.includes(e.key)) Array.from(allBtns).find(x=>x.textContent.toLowerCase()==e.key).classList.add('keydown');
+});
+const allBtns = document.querySelectorAll('button');
+allBtns.forEach(e => e.addEventListener('transitionend', removeTransition));
+function removeTransition(e) {
+    if (e.propertyName !== 'background-color') return;
+    e.target.classList.remove('keydown');
+}

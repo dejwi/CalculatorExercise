@@ -37,6 +37,9 @@ body {
 .btncontainer button:hover{
     background: #7787A6;
 }
+.keydown{
+    background: #7787A6 !important;
+}
 body{
     background: #E9EBEA;
 }
