@@ -1,5 +1,26 @@
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 #sumdisplay{
     font-size: 28px;
+    background: #aaaaaa;
+    text-align: right;
+    max-width: 200px;
+    overflow: hidden;
+}
+.btncontainer *{
+    margin: 0px;
+    padding: 0px;
+}
+.btncontainer{
+    border-collapse: collapse;
+    max-width: 200px;
 }
 .btncontainer td{
     height: 50px;
@@ -9,4 +30,13 @@
     font-size: 18px;
     width: 100%;
     height: 100%;
+    background: #D0D0D0;
+    border: none;
+    transition: 0.3s;
+}
+.btncontainer button:hover{
+    background: #7787A6;
+}
+body{
+    background: #E9EBEA;
 }
